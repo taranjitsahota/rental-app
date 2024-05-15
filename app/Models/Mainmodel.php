@@ -34,4 +34,24 @@ class Mainmodel extends Model
         ->delete();
         return $users;
     }
+    public static function exceldata($request){
+        // $data =[
+        //     'name'=>$request->name,
+        //     'contact'=>$request->contact
+        // ];
+        // // dd($data);
+        // $users=DB::table('excel')
+        // ->insert($data);
+        // return $data;
+    }
+    public static function testpost($request){
+        $data = [
+            'name'=>$request->name,
+            'email'=>$request->email,
+
+        ];
+        $users = DB::table('test')
+        ->insert($data);
+        return $data;
+    }
 }

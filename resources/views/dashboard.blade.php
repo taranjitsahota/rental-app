@@ -94,6 +94,8 @@
         <a href="/show">
             <button class="btn btn-primary">Show Table</button>
         </a>
+        <a href="/excel">
+        <button class="btn btn-primary">Import excel</button></a>
     </nav>
     
     
