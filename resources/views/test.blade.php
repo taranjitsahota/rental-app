@@ -25,6 +25,7 @@
                 url: '{{  url("/testpost") }}', // Using named route
                 data: formData,
                 success: function(response) {
+                    
                     $('#response').html('<p>Name: ' + response.name + '</p><p>Email: ' + response.email + '</p>');
                 },
                 error: function(xhr, status, error) {

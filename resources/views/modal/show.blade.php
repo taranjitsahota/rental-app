@@ -53,22 +53,59 @@
             </button>
           </div>
           <div class="modal-body">
-            <form method="POST" id="form" action="">
+            <form method="POST" id="form" >
               @csrf
               <input placeholder="Name" name="name" type="text">
               <input placeholder="Email" name="email" type="text">
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Close</button>
           
-              <button type="submit" id="submit" class="btn btn-primary">Save changes</button>
+              <button type="button" onclick="submitForm()" class="btn btn-primary">Save changes</button>
             </form>
+            {{-- <div id="response"></div> --}}
           </div>
         </div>
       </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    @push('scripts')
+    <script>
+      function submitForm() {
+          var formData = $('#form').serialize();
+          $.ajax({
+              type: 'POST',
+              url: '{{  url("/store") }}',
+              data: formData,
+              success: function(response) {
+                  // $('#response').html('<p>Name: ' + response.name + '</p><p>Email: ' + response.email + '</p>');
+                  // $('#close').click();
+                  var newRow = '<tr>' +
+                  '<th>' + (response.index + 1) + '</th>' +
+                  '<td>' + response.name + '</td>' +
+                  '<td>' + response.email + '</td>' +
+                  '<td>' +
+                  '<button class="btn btn-primary">Edit</button>' +
+                  '<a href="delete/' + response.id + '" class="btn btn-primary">Delete</a>' +
+                  '</td>' +
+                  '</tr>';
+                  $('tbody').append(newRow);
+                  $('#close').click();
+                  //  // Hide the modal
+                  //  $('#exampleModal').modal('hide');
+
+                
+              },
+              error: function(xhr, status, error) {
+                  console.error(xhr.responseText);
+              }
+          });
+      }
+  </script>
+
+
+
+    {{-- @push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script>
@@ -124,4 +161,4 @@ $.ajax({
 
 </script>
     
-@endpush
+@endpush --}}
